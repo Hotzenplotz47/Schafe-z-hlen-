@@ -11,8 +11,9 @@ const firebaseConfig = {
 };
 
 // Firebase initialisieren
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const app = initializeApp(firebaseConfig);
+
+const analytics = getAnalytics(app);
 
 // Elemente aus dem DOM holen
 const sheepCountInput = document.getElementById('sheepCount');
