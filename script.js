@@ -9,6 +9,12 @@ const firebaseConfig = {
   appId: "1:741265220339:web:3a0b7c4d12cb9dcab80d86"
 };
 
+try {
+  const app = firebase.initializeApp(firebaseConfig);
+  console.log("Firebase initialisiert");
+} catch (error) {
+  console.error("Fehler bei der Firebase-Initialisierung:", error);
+}
 // Firebase initialisieren
 const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
