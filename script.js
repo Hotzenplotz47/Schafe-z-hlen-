@@ -73,3 +73,16 @@ submitButton.addEventListener('click', () => {
 // Initiales Laden des Leaderboards und der visuellen Darstellung
 updateLeaderboard();
 updateSheepStack(0); // Starte mit 0 Stoffbällen
+
+
+console.log("Skript gestartet");
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM vollständig geladen");
+
+  const stackContainer = document.querySelector('.stack-container');
+  console.log("Stack Container:", stackContainer);
+
+  const submitButton = document.getElementById('submitButton');
+  console.log("Submit Button:", submitButton);
+});
