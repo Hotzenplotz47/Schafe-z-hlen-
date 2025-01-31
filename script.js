@@ -34,17 +34,17 @@ function updateLeaderboard() {
     }
   });
 }
-
+/
 // Visuelle Darstellung der gestapelten Stoffbälle aktualisieren
-function updateSheepStack(count) {
-  stackContainer.innerHTML = ''; // Vorherige Stoffbälle löschen
-  for (let i = 0; i < count; i++) {
-    const sheepBall = document.createElement('div');
-    sheepBall.classList.add('sheep-ball');
-    stackContainer.appendChild(sheepBall);
+//function updateSheepStack(count) {
+  //stackContainer.innerHTML = ''; // Vorherige Stoffbälle löschen
+ // for (let i = 0; i < count; i++) {
+   // const sheepBall = document.createElement('div');
+   // sheepBall.classList.add('sheep-ball');
+  //  stackContainer.appendChild(sheepBall);
   }
 }
-
+//
 // Eintrag hinzufügen
 submitButton.addEventListener('click', () => {
   const count = parseInt(sheepCountInput.value);
