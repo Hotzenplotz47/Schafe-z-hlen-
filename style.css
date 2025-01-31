@@ -57,3 +57,25 @@ button:hover {
   border: 1px solid #ddd;
   border-radius: 5px;
 }
+
+/* Visuelle Darstellung der gestapelten Stoffbälle */
+.sheep-stack {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.stack-container {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 5px;
+}
+
+.sheep-ball {
+  width: 30px;
+  height: 30px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
