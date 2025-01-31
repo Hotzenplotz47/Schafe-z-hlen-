@@ -1,29 +1,243 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schafe Zählen</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 Schäfchen zählen | Traumwald</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #81C784;
+            --background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--background);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-art {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="%234CAF50" opacity="0.1"/></svg>');
+            z-index: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin: 0 0 2rem 0;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #45a049;
+            transform: scale(1.02);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .leaderboard {
+            margin-top: 2rem;
+            background: #F5F5F5;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .leaderboard h2 {
+            color: var(--primary);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #leaderboard {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #leaderboard li {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        #leaderboard li:hover {
+            transform: translateX(10px);
+        }
+
+        .rank {
+            font-weight: bold;
+            color: var(--primary);
+            min-width: 30px;
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Schafe Zählen</h1>
-    <p>Wie viele Schafe hast du gezählt?</p>
-    <input type="number" id="sheepCount" placeholder="Anzahl der Schafe" min="0">
-    <button id="submitButton">Eintragen</button>
+    <div class="background-art"></div>
+    
+    <div class="container">
+        <h1><span class="emoji">🌙</span> Schäfchen zählen <span class="emoji">🐑</span></h1>
 
-    <div class="sheep-stack">
-      <div class="stack-container"></div>
+        <div class="input-group">
+            <input type="number" id="sheepCount" placeholder="Wie viele Schäfchen hast du gezählt?" min="0">
+        </div>
+
+        <button id="submitButton">🏆 Eintragen</button>
+
+        <div class="leaderboard">
+            <h2><span class="emoji">🏅</span> Bestenliste</h2>
+            <ul id="leaderboard"></ul>
+        </div>
     </div>
 
-    <h2>Leaderboard</h2>
-    <ul id="leaderboard"></ul>
-  </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "DEINE_API_KEY",
+            authDomain: "DEIN_PROJEKT.firebaseapp.com",
+            databaseURL: "https://DEIN_PROJEKT.firebaseio.com",
+            projectId: "DEIN_PROJEKT",
+            storageBucket: "DEIN_PROJEKT.appspot.com",
+            messagingSenderId: "DEINE_SENDER_ID",
+            appId: "DEINE_APP_ID"
+        };
 
-  <!-- Firebase-Skripte in der richtigen Reihenfolge -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
-  <script src="script.js"></script>
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const elements = {
+            sheepCount: document.getElementById('sheepCount'),
+            submitButton: document.getElementById('submitButton'),
+            leaderboard: document.getElementById('leaderboard')
+        };
+
+        function createLeaderboardItem(entry, index) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div class="rank">${index + 1}.</div>
+                <div style="flex-grow: 1">${entry.name}</div>
+                <div class="emoji">${'🐑'.repeat(Math.min(entry.count, 5))} ${entry.count}</div>
+            `;
+            return li;
+        }
+
+        function updateLeaderboard() {
+            database.ref('leaderboard').orderByChild('count').limitToLast(10).on('value', snapshot => {
+                elements.leaderboard.innerHTML = '';
+                const data = snapshot.val();
+                if (data) {
+                    Object.values(data)
+                        .sort((a, b) => b.count - a.count)
+                        .forEach((entry, index) => {
+                            elements.leaderboard.appendChild(createLeaderboardItem(entry, index));
+                        });
+                }
+            });
+        }
+
+        elements.submitButton.addEventListener('click', () => {
+            const count = parseInt(elements.sheepCount.value);
+            if (isNaN(count) || count < 0) {
+                alert("Bitte gib eine gültige Anzahl ein! 🌸");
+                return;
+            }
+
+            const name = prompt("Wie heißt du? 🌿");
+            if (!name) return;
+
+            database.ref('leaderboard').push({
+                name: name.substring(0, 15),
+                count: count,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            });
+
+            elements.sheepCount.value = '';
+        });
+
+        // Initialisierung
+        updateLeaderboard();
+    </script>
 </body>
 </html>
