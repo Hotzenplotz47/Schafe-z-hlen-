@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schafe Zählen - Leaderboard</title>
+  <title>Schafe Zählen</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,7 +13,6 @@
     <input type="number" id="sheepCount" placeholder="Anzahl der Schafe" min="0">
     <button id="submitButton">Eintragen</button>
 
-    <!-- Visuelle Darstellung der gestapelten Stoffbälle -->
     <div class="sheep-stack">
       <div class="stack-container"></div>
     </div>
@@ -22,7 +21,7 @@
     <ul id="leaderboard"></ul>
   </div>
 
-  <!-- Firebase und eigene Skripte einbinden -->
+  <!-- Firebase-Skripte in der richtigen Reihenfolge -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
   <script src="script.js"></script>
