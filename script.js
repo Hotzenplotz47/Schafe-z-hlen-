@@ -1,5 +1,4 @@
-
-// Firebase-Konfiguration einfügen
+// Firebase-Konfiguration einfügen (ersetze die Platzhalter mit deinen Firebase-Daten)
 const firebaseConfig = {
   apiKey: "DEINE_API_KEY",
   authDomain: "dein-projekt-name.firebaseapp.com",
@@ -62,9 +61,4 @@ submitButton.addEventListener('click', () => {
   database.ref('leaderboard').push(newEntry);
 
   updateSheepStack(count); // Visuelle Darstellung aktualisieren
-  sheepCountInput.value = ''; // Eingabefeld leeren
-});
-
-// Initiales Laden des Leaderboards und der visuellen Darstellung
-updateLeaderboard();
-updateSheepStack(0); // Starte mit 0 Stoffbällen
+  sheepCountInput.value = ''; // Eingabefeld le
