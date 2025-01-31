@@ -7,13 +7,11 @@ const firebaseConfig = {
   storageBucket: "schafe-df870.firebasestorage.app",
   messagingSenderId: "741265220339",
   appId: "1:741265220339:web:3a0b7c4d12cb9dcab80d86"
-  
 };
 
 // Firebase initialisieren
-const app = initializeApp(firebaseConfig);
-
-const analytics = getAnalytics(app);
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 // Elemente aus dem DOM holen
 const sheepCountInput = document.getElementById('sheepCount');
@@ -63,4 +61,9 @@ submitButton.addEventListener('click', () => {
   database.ref('leaderboard').push(newEntry);
 
   updateSheepStack(count); // Visuelle Darstellung aktualisieren
-  sheepCountInput.value = ''; // Eingabefeld le
+  sheepCountInput.value = ''; // Eingabefeld leeren
+});
+
+// Initiales Laden des Leaderboards und der visuellen Darstellung
+updateLeaderboard();
+updateSheepStack(0); // Starte mit 0 Stoffbällen
