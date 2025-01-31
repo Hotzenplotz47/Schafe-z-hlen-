@@ -1,12 +1,13 @@
 // Firebase-Konfiguration einfügen (ersetze die Platzhalter mit deinen Firebase-Daten)
 const firebaseConfig = {
-  apiKey: "DEINE_API_KEY",
-  authDomain: "dein-projekt-name.firebaseapp.com",
-  databaseURL: "https://dein-projekt-name.firebaseio.com",
-  projectId: "dein-projekt-name",
-  storageBucket: "dein-projekt-name.appspot.com",
-  messagingSenderId: "DEINE_SENDER_ID",
-  appId: "DEINE_APP_ID"
+  apiKey: "AIzaSyCfFrvGZ2esnAuDRhj1SG8XfcG0G3N5zF8",
+  authDomain: "schafe-df870.firebaseapp.com",
+  databaseURL: "https://schafe-df870-default-rtdb.firebaseio.com",
+  projectId: "schafe-df870",
+  storageBucket: "schafe-df870.firebasestorage.app",
+  messagingSenderId: "741265220339",
+  appId: "1:741265220339:web:3a0b7c4d12cb9dcab80d86"
+  
 };
 
 // Firebase initialisieren
