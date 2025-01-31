@@ -1,81 +1,30 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schafe Zählen - Leaderboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Schafe Zählen</h1>
+    <p>Wie viele Schafe hast du gezählt?</p>
+    <input type="number" id="sheepCount" placeholder="Anzahl der Schafe" min="0">
+    <button id="submitButton">Eintragen</button>
 
-.container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-}
+    <!-- Visuelle Darstellung der gestapelten Stoffbälle -->
+    <div class="sheep-stack">
+      <div class="stack-container"></div>
+    </div>
 
-h1 {
-  color: #4CAF50;
-}
+    <h2>Leaderboard</h2>
+    <ul id="leaderboard"></ul>
+  </div>
 
-input[type="number"] {
-  padding: 10px;
-  width: 80%;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-#leaderboard {
-  list-style-type: none;
-  padding: 0;
-}
-
-#leaderboard li {
-  background-color: #f9f9f9;
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-/* Visuelle Darstellung der gestapelten Stoffbälle */
-.sheep-stack {
-  margin: 20px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.stack-container {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  gap: 5px;
-}
-
-.sheep-ball {
-  width: 30px;
-  height: 30px;
-  background-color: #4CAF50;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+  <!-- Firebase und eigene Skripte einbinden -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
