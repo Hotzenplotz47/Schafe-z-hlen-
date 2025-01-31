@@ -9,29 +9,23 @@ const firebaseConfig = {
   appId: "1:741265220339:web:3a0b7c4d12cb9dcab80d86"
 };
 
-try {
-  const app = firebase.initializeApp(firebaseConfig);
-  console.log("Firebase initialisiert");
-} catch (error) {
-  console.error("Fehler bei der Firebase-Initialisierung:", error);
-}
 // Firebase initialisieren
 const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Elemente aus dem DOM holen
+// DOM-Elemente
 const sheepCountInput = document.getElementById('sheepCount');
 const submitButton = document.getElementById('submitButton');
 const leaderboardList = document.getElementById('leaderboard');
 const stackContainer = document.querySelector('.stack-container');
 
-// Leaderboard aus der Datenbank abrufen und anzeigen
+// Leaderboard aktualisieren
 function updateLeaderboard() {
   database.ref('leaderboard').orderByChild('count').limitToLast(10).on('value', (snapshot) => {
-    leaderboardList.innerHTML = ''; // Liste leeren
+    leaderboardList.innerHTML = '';
     const data = snapshot.val();
     if (data) {
-      const sortedEntries = Object.values(data).sort((a, b) => b.count - a.count); // Nach Anzahl sortieren
+      const sortedEntries = Object.values(data).sort((a, b) => b.count - a.count);
       sortedEntries.forEach((entry, index) => {
         const li = document.createElement('li');
         li.textContent = ${index + 1}. ${entry.name}: ${entry.count} Schafe;
@@ -40,17 +34,17 @@ function updateLeaderboard() {
     }
   });
 }
-/
-// Visuelle Darstellung der gestapelten Stoffbälle aktualisieren
-//function updateSheepStack(count) {
-  //stackContainer.innerHTML = ''; // Vorherige Stoffbälle löschen
- // for (let i = 0; i < count; i++) {
-   // const sheepBall = document.createElement('div');
-   // sheepBall.classList.add('sheep-ball');
-  //  stackContainer.appendChild(sheepBall);
+
+// Stoffbälle anzeigen
+function updateSheepStack(count) {
+  stackContainer.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const sheepBall = document.createElement('div');
+    sheepBall.classList.add('sheep-ball');
+    stackContainer.appendChild(sheepBall);
   }
 }
-//
+
 // Eintrag hinzufügen
 submitButton.addEventListener('click', () => {
   const count = parseInt(sheepCountInput.value);
@@ -59,30 +53,16 @@ submitButton.addEventListener('click', () => {
     return;
   }
 
-  const name = prompt('Wie heißt du?'); // Namen abfragen
+  const name = prompt('Wie heißt du?');
   if (!name) return;
 
-  // Eintrag in die Datenbank speichern
   const newEntry = { name, count };
   database.ref('leaderboard').push(newEntry);
 
-  updateSheepStack(count); // Visuelle Darstellung aktualisieren
-  sheepCountInput.value = ''; // Eingabefeld leeren
+  updateSheepStack(count);
+  sheepCountInput.value = '';
 });
 
-// Initiales Laden des Leaderboards und der visuellen Darstellung
+// Initialisierung
 updateLeaderboard();
-updateSheepStack(0); // Starte mit 0 Stoffbällen
-
-
-console.log("Skript gestartet");
-
-document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOM vollständig geladen");
-
-  const stackContainer = document.querySelector('.stack-container');
-  console.log("Stack Container:", stackContainer);
-
-  const submitButton = document.getElementById('submitButton');
-  console.log("Submit Button:", submitButton);
-});
+updateSheepStack(0);
