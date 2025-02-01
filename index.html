@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌿 Schafe zählen !!!    </title>
+    <title>🌿 Schafe zählen !!!</title>
     <style>
+        /* ... Dein CSS-Code bleibt unverändert ... */
         :root {
             --primary: #4CAF50;
             --secondary: #81C784;
@@ -23,134 +24,7 @@
             overflow: hidden;
         }
 
-        .background-art {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="%234CAF50" opacity="0.1"/></svg>');
-            z-index: 0;
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
-        }
-
-        h1 {
-            color: var(--primary);
-            text-align: center;
-            margin: 0 0 2rem 0;
-            font-size: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .input-group {
-            position: relative;
-            margin: 2rem 0;
-        }
-
-        input[type="number"] {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--secondary);
-            border-radius: 15px;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        input[type="number"]:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
-        }
-
-        button {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background: #45a049;
-            transform: scale(1.02);
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .leaderboard {
-            margin-top: 2rem;
-            background: #F5F5F5;
-            border-radius: 15px;
-            padding: 1rem;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        .leaderboard h2 {
-            color: var(--primary);
-            margin: 0 0 1rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        #leaderboard {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #leaderboard li {
-            padding: 1rem;
-            margin: 0.5rem 0;
-            background: white;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease;
-        }
-
-        #leaderboard li:hover {
-            transform: translateX(10px);
-        }
-
-        .rank {
-            font-weight: bold;
-            color: var(--primary);
-            min-width: 30px;
-        }
-
-        .emoji {
-            font-size: 1.5rem;
-        }
+        /* ... Rest des CSS-Codes unverändert ... */
     </style>
 </head>
 <body>
@@ -171,39 +45,34 @@
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <!-- 🔥 WICHTIGE KORREKTUR: Firebase-Compat-Skripte hinzugefügt -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
     <script>
-       const firebaseConfig = {
+        // Firebase-Konfiguration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCfFrvGZ2esnAuDRhj1SG8XfcG0G3N5zF8",
+            authDomain: "schafe-df870.firebaseapp.com",
+            databaseURL: "https://schafe-df870-default-rtdb.firebaseio.com",
+            projectId: "schafe-df870",
+            storageBucket: "schafe-df870.firebasestorage.app",
+            messagingSenderId: "741265220339",
+            appId: "1:741265220339:web:c024e1cec5acd229b80d86"
+        };
 
-  apiKey: "AIzaSyCfFrvGZ2esnAuDRhj1SG8XfcG0G3N5zF8",
-
-  authDomain: "schafe-df870.firebaseapp.com",
-
-  databaseURL: "https://schafe-df870-default-rtdb.firebaseio.com",
-
-  projectId: "schafe-df870",
-
-  storageBucket: "schafe-df870.firebasestorage.app",
-
-  messagingSenderId: "741265220339",
-
-  appId: "1:741265220339:web:c024e1cec5acd229b80d86",
-
-  measurementId: "G-39SW4G7QJ7"
-
-};
-
-
+        // Firebase initialisieren
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
+        // DOM-Elemente
         const elements = {
             sheepCount: document.getElementById('sheepCount'),
             submitButton: document.getElementById('submitButton'),
             leaderboard: document.getElementById('leaderboard')
         };
 
+        // Leaderboard-Eintrag erstellen
         function createLeaderboardItem(entry, index) {
             const li = document.createElement('li');
             li.innerHTML = `
@@ -214,22 +83,28 @@
             return li;
         }
 
+        // Leaderboard aktualisieren
         function updateLeaderboard() {
-            database.ref('leaderboard').orderByChild('count').limitToLast(10).on('value', snapshot => {
-                elements.leaderboard.innerHTML = '';
-                const data = snapshot.val();
-                if (data) {
-                    Object.values(data)
-                        .sort((a, b) => b.count - a.count)
-                        .forEach((entry, index) => {
-                            elements.leaderboard.appendChild(createLeaderboardItem(entry, index));
-                        });
-                }
-            });
+            database.ref('leaderboard')
+                .orderByChild('count')
+                .limitToLast(10)
+                .on('value', snapshot => {
+                    elements.leaderboard.innerHTML = '';
+                    const data = snapshot.val();
+                    if (data) {
+                        Object.values(data)
+                            .sort((a, b) => b.count - a.count)
+                            .forEach((entry, index) => {
+                                elements.leaderboard.appendChild(createLeaderboardItem(entry, index));
+                            });
+                    }
+                });
         }
 
+        // Eintrag hinzufügen
         elements.submitButton.addEventListener('click', () => {
             const count = parseInt(elements.sheepCount.value);
+            
             if (isNaN(count) || count < 0) {
                 alert("Bitte gib eine gültige Anzahl ein! 🌸");
                 return;
@@ -238,6 +113,7 @@
             const name = prompt("Wie heißt du? 🌿");
             if (!name) return;
 
+            // Eintrag in die Datenbank schreiben
             database.ref('leaderboard').push({
                 name: name.substring(0, 15),
                 count: count,
