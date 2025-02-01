@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌿 Schafe zählen !!!</title>
+    <title>🐑 Schafe Zähle</title>
     <style>
-        /* ... Dein CSS-Code bleibt unverändert ... */
         :root {
             --primary: #4CAF50;
             --secondary: #81C784;
@@ -24,33 +23,178 @@
             overflow: hidden;
         }
 
-        /* ... Rest des CSS-Codes unverändert ... */
+        .background-art {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(129, 199, 132, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.97);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin: 0 0 2rem 0;
+            font-size: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .button-group {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr auto;
+        }
+
+        button {
+            padding: 1.2rem 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button.reset {
+            background: #ff4444;
+            width: auto;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .leaderboard {
+            margin-top: 2rem;
+            background: rgba(245, 245, 245, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .leaderboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        #leaderboard {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #leaderboard li {
+            padding: 1.2rem;
+            margin: 0.8rem 0;
+            background: white;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: 50px 1fr auto;
+            align-items: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        #leaderboard li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .rank {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .emoji {
+            font-size: 1.8rem;
+        }
+
+        .license {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
     <div class="background-art"></div>
     
     <div class="container">
-        <h1><span class="emoji">🌙</span> Schäfchen zählen <span class="emoji">🐑</span></h1>
+        <h1><span class="emoji">🌙</span> Schafe Zähle <span class="emoji">🐑</span></h1>
 
         <div class="input-group">
-            <input type="number" id="sheepCount" placeholder="Wie viele Schäfchen hast du gezählt?" min="0">
+            <input type="number" id="sheepCount" placeholder="Wie viele Schafe hast du gezählt?" min="0">
         </div>
 
-        <button id="submitButton">🏆 Eintragen</button>
+        <div class="button-group">
+            <button id="submitButton">🏆 Eintragen</button>
+            <button class="reset" id="resetButton" title="Leaderboard zurücksetzen">🔄</button>
+        </div>
 
         <div class="leaderboard">
-            <h2><span class="emoji">🏅</span> Bestenliste</h2>
+            <div class="leaderboard-header">
+                <h2><span class="emoji">🏅</span> Bestenliste</h2>
+                <div class="emoji">📊</div>
+            </div>
             <ul id="leaderboard"></ul>
         </div>
     </div>
 
-    <!-- 🔥 WICHTIGE KORREKTUR: Firebase-Compat-Skripte hinzugefügt -->
+    <div class="license">
+        licenses by paulhatsgemacht
+    </div>
+
+    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <script>
-        // Firebase-Konfiguration
         const firebaseConfig = {
             apiKey: "AIzaSyCfFrvGZ2esnAuDRhj1SG8XfcG0G3N5zF8",
             authDomain: "schafe-df870.firebaseapp.com",
@@ -61,14 +205,13 @@
             appId: "1:741265220339:web:c024e1cec5acd229b80d86"
         };
 
-        // Firebase initialisieren
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // DOM-Elemente
         const elements = {
             sheepCount: document.getElementById('sheepCount'),
             submitButton: document.getElementById('submitButton'),
+            resetButton: document.getElementById('resetButton'),
             leaderboard: document.getElementById('leaderboard')
         };
 
@@ -76,8 +219,8 @@
         function createLeaderboardItem(entry, index) {
             const li = document.createElement('li');
             li.innerHTML = `
-                <div class="rank">${index + 1}.</div>
-                <div style="flex-grow: 1">${entry.name}</div>
+                <div class="rank">${index + 1}</div>
+                <div>${entry.name}</div>
                 <div class="emoji">${'🐑'.repeat(Math.min(entry.count, 5))} ${entry.count}</div>
             `;
             return li;
@@ -101,6 +244,15 @@
                 });
         }
 
+        // Leaderboard zurücksetzen
+        elements.resetButton.addEventListener('click', () => {
+            if (confirm('Möchtest du wirklich das gesamte Leaderboard löschen? 🚨')) {
+                database.ref('leaderboard').remove()
+                    .then(() => alert('Leaderboard wurde zurückgesetzt! 🔄'))
+                    .catch(error => alert('Fehler beim Zurücksetzen: ' + error));
+            }
+        });
+
         // Eintrag hinzufügen
         elements.submitButton.addEventListener('click', () => {
             const count = parseInt(elements.sheepCount.value);
@@ -110,10 +262,8 @@
                 return;
             }
 
-            const name = prompt("Wie heißt du? 🌿");
-            if (!name) return;
-
-            // Eintrag in die Datenbank schreiben
+            const name = prompt("Wie heißt du? 🌿") || "Anonym";
+            
             database.ref('leaderboard').push({
                 name: name.substring(0, 15),
                 count: count,
